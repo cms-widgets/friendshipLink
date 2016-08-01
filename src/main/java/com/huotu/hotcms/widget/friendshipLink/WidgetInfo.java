@@ -14,7 +14,6 @@ import com.huotu.hotcms.widget.Widget;
 import com.huotu.hotcms.widget.WidgetStyle;
 import me.jiangcai.lib.resource.service.ResourceService;
 import org.apache.commons.collections.map.HashedMap;
-import org.apache.http.entity.ContentType;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -47,20 +46,15 @@ public class WidgetInfo implements Widget{
 
     @Override
     public String name(Locale locale) {
-        if (locale.equals(Locale.CHINESE)) {
+        if (locale.equals(Locale.CHINA)) {
             return "友情链接";
         }
         return "Friendship link";
     }
 
     @Override
-    public String description() {
-        return "这是一个友情链接，你可以对组件进行自定义修改。";
-    }
-
-    @Override
     public String description(Locale locale) {
-        if (locale.equals(Locale.CHINESE)) {
+        if (locale.equals(Locale.CHINA)) {
             return "这是一个友情链接，你可以对组件进行自定义修改。";
         }
         return "This is a Friendship link,  you can make custom change the component.";
