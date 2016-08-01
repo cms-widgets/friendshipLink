@@ -1,5 +1,7 @@
 /**
- * Created by admin on 2016/6/23.
+ * 友情链接
+ * 添加可配置的target 默认为_blank by CJ
+ * Created by Li Huaixin on 2016/6/23.
  */
 CMSWidgets.initWidget({
 // 编辑器相关
@@ -30,10 +32,10 @@ CMSWidgets.initWidget({
                 var url;
                 $.each($(itemObj).find(".linkTitle"), function (i, v) {
                     title = $(v).val();
-                })
+                });
                 $.each($(itemObj).find(".linkUrl"), function (i, v) {
                     url = $(v).val();
-                })
+                });
 
                 $.grep(me.properties['linkList'], function (obj, i) {
                     if (obj != '' && obj.title == title && obj.url == url) {
@@ -46,10 +48,10 @@ CMSWidgets.initWidget({
         },
         saveComponent: function (onSuccess, onFailed) {
             var me = this;
-            me.properties['linkList'] = []
+            me.properties['linkList'] = [];
             $.each($(".linkbox").find(".row"), function (i, row) {
-                var title;
-                var url;
+                var title = 'notitle';
+                var url = '#';
                 $.each($(row).find(".linkTitle"), function (i, v) {
                     title = $(v).val();
                 });
@@ -59,7 +61,8 @@ CMSWidgets.initWidget({
                 var item = {
                     title: title
                     , url: url
-                }
+                    , target: '_blank'
+                };
                 me.properties['linkList'].push(item);
             });
             if (me.properties['linkList'].length == 0) {

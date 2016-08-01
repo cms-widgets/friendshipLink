@@ -4,11 +4,9 @@ import com.huotu.hotcms.widget.ComponentProperties;
 import com.huotu.hotcms.widget.Widget;
 import com.huotu.hotcms.widget.WidgetStyle;
 import com.huotu.widget.test.WidgetTest;
-import com.huotu.widget.test.WidgetTestConfig;
 import com.huotu.widget.test.bean.WidgetViewController;
 import org.apache.commons.collections.map.HashedMap;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,16 +14,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-
-/**
- * Created by lhx on 2016/6/22.
- */
 
 public class TestWidgetInfo extends WidgetTest {
     @Override
@@ -33,14 +26,11 @@ public class TestWidgetInfo extends WidgetTest {
         return true;
     }
 
-    @Autowired
-    private WidgetViewController widgetViewController;
-
     @Override
     protected void editorWork(Widget widget, WebElement editor, Supplier<Map<String, Object>> currentWidgetProperties) {
-        try{
+        try {
             currentWidgetProperties.get();
-        }catch (IllegalStateException ignored){
+        } catch (IllegalStateException ignored) {
             assertThat(0).as("save没有属性值返回异常").isEqualTo(0);
         }
 
@@ -50,7 +40,7 @@ public class TestWidgetInfo extends WidgetTest {
         List<WebElement> rows = editor.findElements(By.className("row"));
         assertThat(rows.size()).as("节点添加成功").isEqualTo(1);
         Map ps = currentWidgetProperties.get();
-        List<Map<String,Object>> linkList = (List<Map<String, Object>>) ps.get("linkList");
+        List<Map<String, Object>> linkList = (List<Map<String, Object>>) ps.get("linkList");
         assertThat(linkList.get(0).get("title").toString()).as("添加的节点").isEqualTo(".");
 
 
@@ -60,7 +50,7 @@ public class TestWidgetInfo extends WidgetTest {
         removerLinkItems.get(0).click();
         try {
             ps = currentWidgetProperties.get();
-        }catch (IllegalStateException e){
+        } catch (IllegalStateException e) {
             assertThat(0).as("linkList 没有数据，返回properties is null").isEqualTo(0);
         }
 
@@ -71,17 +61,15 @@ public class TestWidgetInfo extends WidgetTest {
     @Override
     protected void browseWork(Widget widget, WidgetStyle style, Function<ComponentProperties, WebElement> uiChanger) {
 
-        ComponentProperties componentProperties = new ComponentProperties();
         ComponentProperties properties = new ComponentProperties();
-        List<Map<String,Object>> list = new ArrayList<>();
-        Map<String,Object> linkItem = new HashedMap();
-        linkItem.put("title","hello world");
-        linkItem.put("url","http://www.baidu.com");
+        List<Map<String, Object>> list = new ArrayList<>();
+        Map<String, Object> linkItem = new HashMap<>();
+        linkItem.put("title", "hello world");
+        linkItem.put("url", "http://www.baidu.com");
         list.add(linkItem);
         properties.put("linkList", list);
-        componentProperties.put("properties", properties);
 
-        WebElement webElement = uiChanger.apply(componentProperties);
+        WebElement webElement = uiChanger.apply(properties);
 
         List<WebElement> a = webElement.findElements(By.tagName("a"));
         assertThat(a.size()).isEqualTo(1);

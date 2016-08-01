@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * @author CJ
  */
-public class WidgetInfo implements Widget{
+public class WidgetInfo implements Widget {
     public static final String VALID_LINK_LIST = "linkList";
     /*
      * 指定风格的模板类型 如：html,text等
@@ -68,14 +68,14 @@ public class WidgetInfo implements Widget{
     @Override
     public Map<String, Resource> publicResources() {
         Map<String, Resource> map = new HashMap<>();
-        map.put("thumbnail/friendshipLink1Style.png",new ClassPathResource("thumbnail/friendshipLink1Style.png"
-                ,getClass().getClassLoader()));
+        map.put("thumbnail/friendshipLink1Style.png", new ClassPathResource("thumbnail/friendshipLink1Style.png"
+                , getClass().getClassLoader()));
         return map;
     }
 
     @Override
     public Resource widgetDependencyContent(MediaType mediaType) {
-        if (mediaType.isCompatibleWith(Javascript)){
+        if (mediaType.isCompatibleWith(Javascript)) {
             return new ClassPathResource("js/friendshipLink.js", getClass().getClassLoader());
         }
         return null;
@@ -102,9 +102,9 @@ public class WidgetInfo implements Widget{
         if (!flag) {
             throw new IllegalArgumentException();
         }
-        List<Map<String,Object>> linkList = (List<Map<String, Object>>) componentProperties.get(VALID_LINK_LIST);
+        List<Map<String, Object>> linkList = (List<Map<String, Object>>) componentProperties.get(VALID_LINK_LIST);
         String styleTemplate = (String) componentProperties.get(VALID_STYLE_TEMPLATE);
-        if (linkList==null ||linkList.size()<=0 || styleTemplate==null || !"html".equals(styleTemplate)) {
+        if (linkList == null || linkList.size() <= 0 || styleTemplate == null || !"html".equals(styleTemplate)) {
             throw new IllegalArgumentException();
         }
     }
@@ -117,10 +117,12 @@ public class WidgetInfo implements Widget{
     @Override
     public ComponentProperties defaultProperties(ResourceService resourceService) {
         ComponentProperties properties = new ComponentProperties();
-        List<Map<String,Object>> linkItems = new ArrayList<>();
-        Map<String,Object> item1 = new HashedMap();
-        item1.put("title","火图科技");
-        item1.put("url","http://www.huobanplus.com");
+        List<Map<String, Object>> linkItems = new ArrayList<>();
+        Map<String, Object> item1 = new HashMap<>();
+//        HashMap.
+        item1.put("title", "火图科技");
+        item1.put("target", "_blank");
+        item1.put("url", "http://www.huobanplus.com");
 
         linkItems.add(item1);
         linkItems.add(item1);
@@ -128,7 +130,7 @@ public class WidgetInfo implements Widget{
         linkItems.add(item1);
         linkItems.add(item1);
 
-        properties.put(VALID_LINK_LIST,item1);
+        properties.put(VALID_LINK_LIST, item1);
         return properties;
     }
 

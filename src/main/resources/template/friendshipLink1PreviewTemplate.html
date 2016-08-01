@@ -1,13 +1,13 @@
 <!--预览视图-->
-<div id="friendshipLink" class="link-exchange">
+<div id="friendshipLink" class="link-exchange" xmlns:th="http://www.thymeleaf.org">
     <dl>
         <dt>友情链接</dt>
         <dd>
             <a rel="nofollow" target="_blank" href="http://www.huobanplus.com/"
                th:each="link:${properties['linkList']}"
+               th:target="${link['target']}"
                th:href="${link['url']}"
                th:text="${link['title']}">火图科技</a>
-
         </dd>
     </dl>
 </div>
