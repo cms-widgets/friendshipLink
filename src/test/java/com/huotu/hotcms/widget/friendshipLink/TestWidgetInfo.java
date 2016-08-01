@@ -6,6 +6,7 @@ import com.huotu.hotcms.widget.WidgetStyle;
 import com.huotu.widget.test.WidgetTest;
 import com.huotu.widget.test.WidgetTestConfig;
 import com.huotu.widget.test.bean.WidgetViewController;
+import org.apache.commons.collections.map.HashedMap;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -39,7 +40,6 @@ public class TestWidgetInfo extends WidgetTest {
     protected void editorWork(Widget widget, WebElement editor, Supplier<Map<String, Object>> currentWidgetProperties) {
         try{
             currentWidgetProperties.get();
-            assert false;
         }catch (IllegalStateException ignored){
             assertThat(0).as("save没有属性值返回异常").isEqualTo(0);
         }
@@ -66,33 +66,17 @@ public class TestWidgetInfo extends WidgetTest {
 
         rows = editor.findElements(By.className("row"));
         assertThat(rows.size()).isEqualTo(0);
-
-
     }
 
     @Override
     protected void browseWork(Widget widget, WidgetStyle style, Function<ComponentProperties, WebElement> uiChanger) {
-        uiChanger = (properties) -> {
-            widgetViewController.setCurrentProperties(properties);
-            String uri = "/browse/" + WidgetTestConfig.WidgetIdentity(widget) + "/" + style.id();
-            if (printPageSource())
-                try {
-                    mockMvc.perform(get(uri))
-                            .andDo(print());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    throw new IllegalStateException("no print html");
-                }
-            driver.get("http://localhost" + uri);
-            WebElement webElement = driver.findElement(By.id("browse")).findElement(By.tagName("div"));
-            return webElement;
-        };
+
         ComponentProperties componentProperties = new ComponentProperties();
         ComponentProperties properties = new ComponentProperties();
-        List<LinkItem> list = new ArrayList<>();
-        LinkItem linkItem = new LinkItem();
-        linkItem.setTitle("hello world");
-        linkItem.setUrl("http://www.baidu.com");
+        List<Map<String,Object>> list = new ArrayList<>();
+        Map<String,Object> linkItem = new HashedMap();
+        linkItem.put("title","hello world");
+        linkItem.put("url","http://www.baidu.com");
         list.add(linkItem);
         properties.put("linkList", list);
         componentProperties.put("properties", properties);

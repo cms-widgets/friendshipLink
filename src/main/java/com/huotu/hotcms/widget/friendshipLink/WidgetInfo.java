@@ -13,9 +13,11 @@ import com.huotu.hotcms.widget.ComponentProperties;
 import com.huotu.hotcms.widget.Widget;
 import com.huotu.hotcms.widget.WidgetStyle;
 import me.jiangcai.lib.resource.service.ResourceService;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.http.entity.ContentType;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,14 +80,13 @@ public class WidgetInfo implements Widget{
     }
 
     @Override
-    public Resource widgetDependencyContent(ContentType contentType) {
+    public Resource widgetDependencyContent(MediaType mediaType) {
+        if (mediaType.isCompatibleWith(Javascript)){
+            return new ClassPathResource("js/friendshipLink.js", getClass().getClassLoader());
+        }
         return null;
     }
 
-    @Override
-    public Resource widgetJs() {
-        return new ClassPathResource("js/friendshipLink.js",getClass().getClassLoader());
-    }
 
     @Override
     public WidgetStyle[] styles() {
@@ -107,7 +108,7 @@ public class WidgetInfo implements Widget{
         if (!flag) {
             throw new IllegalArgumentException();
         }
-        List<LinkItem> linkList = (List<LinkItem>) componentProperties.get(VALID_LINK_LIST);
+        List<Map<String,Object>> linkList = (List<Map<String, Object>>) componentProperties.get(VALID_LINK_LIST);
         String styleTemplate = (String) componentProperties.get(VALID_STYLE_TEMPLATE);
         if (linkList==null ||linkList.size()<=0 || styleTemplate==null || !"html".equals(styleTemplate)) {
             throw new IllegalArgumentException();
@@ -122,10 +123,10 @@ public class WidgetInfo implements Widget{
     @Override
     public ComponentProperties defaultProperties(ResourceService resourceService) {
         ComponentProperties properties = new ComponentProperties();
-        List<LinkItem> linkItems = new ArrayList<>();
-        LinkItem item1 = new LinkItem();
-        item1.setTitle("火图科技");
-        item1.setUrl("http://www.huobanplus.com");
+        List<Map<String,Object>> linkItems = new ArrayList<>();
+        Map<String,Object> item1 = new HashedMap();
+        item1.put("title","火图科技");
+        item1.put("url","http://www.huobanplus.com");
 
         linkItems.add(item1);
         linkItems.add(item1);
