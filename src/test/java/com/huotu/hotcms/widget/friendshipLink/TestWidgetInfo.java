@@ -34,7 +34,7 @@ public class TestWidgetInfo extends WidgetTest {
         WebElement addLink = editor.findElement(By.className("addLink"));
         addLink.click();
         List<WebElement> rows = editor.findElements(By.className("row"));
-        assertThat(rows.size()).as("节点添加成功").isEqualTo(1);
+        assertThat(rows.size()).as("节点添加成功").isEqualTo(2);
         Map ps = currentWidgetProperties.get();
         List<Map<String, Object>> linkList = (List<Map<String, Object>>) ps.get("linkList");
         assertThat(linkList.get(0).get("title").toString()).as("添加的节点").isEqualTo(".");
@@ -42,7 +42,7 @@ public class TestWidgetInfo extends WidgetTest {
 
         //删除节点
         List<WebElement> removerLinkItems = editor.findElements(By.className("removerLinkItem"));
-        assertThat(removerLinkItems.size()).isEqualTo(1);
+        assertThat(removerLinkItems.size()).isEqualTo(2);
         removerLinkItems.get(0).click();
         try {
             ps = currentWidgetProperties.get();
@@ -51,7 +51,7 @@ public class TestWidgetInfo extends WidgetTest {
         }
 
         rows = editor.findElements(By.className("row"));
-        assertThat(rows.size()).isEqualTo(0);
+        assertThat(rows.size()).isEqualTo(1);
     }
 
     @Override
