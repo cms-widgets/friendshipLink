@@ -4,17 +4,13 @@ import com.huotu.hotcms.widget.ComponentProperties;
 import com.huotu.hotcms.widget.Widget;
 import com.huotu.hotcms.widget.WidgetStyle;
 import com.huotu.widget.test.WidgetTest;
-import com.huotu.widget.test.bean.WidgetViewController;
-import org.apache.commons.collections.map.HashedMap;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -67,12 +63,13 @@ public class TestWidgetInfo extends WidgetTest {
         linkItem.put("title", "hello world");
         linkItem.put("url", "http://www.baidu.com");
         list.add(linkItem);
-        properties.put("linkList", list);
+        list.add(linkItem);
+        properties.put(WidgetInfo.VALID_LINK_LIST, list);
 
         WebElement webElement = uiChanger.apply(properties);
 
         List<WebElement> a = webElement.findElements(By.tagName("a"));
-        assertThat(a.size()).isEqualTo(1);
+        assertThat(a.size()).isEqualTo(2);
         assertThat(a.get(0).getAttribute("href")).isEqualToIgnoringCase("http://www.baidu.com");
         assertThat(a.get(0).getText()).isEqualToIgnoringCase("hello world");
     }

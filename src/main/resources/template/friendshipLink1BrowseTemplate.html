@@ -1,11 +1,9 @@
 <!--预览视图-->
-<div id="link-exchange" class="link-exchange" xmlns:th="http://www.thymeleaf.org">
+<div xmlns:th="http://www.thymeleaf.org" class="link-exchange">
     <dl>
         <dt>友情链接</dt>
         <dd>
-            <a rel="nofollow" target="_blank"
-               th:each="link:${properties['linkList']}"
-               th:target="${link['target']}"
+            <a rel="nofollow" target="_blank" th:each="link:${properties['linkList']}"
                th:href="${link['url']}"
                th:text="${link['title']}">火图科技</a>
         </dd>

@@ -13,7 +13,6 @@ import com.huotu.hotcms.widget.ComponentProperties;
 import com.huotu.hotcms.widget.Widget;
 import com.huotu.hotcms.widget.WidgetStyle;
 import me.jiangcai.lib.resource.service.ResourceService;
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -119,18 +118,14 @@ public class WidgetInfo implements Widget {
         ComponentProperties properties = new ComponentProperties();
         List<Map<String, Object>> linkItems = new ArrayList<>();
         Map<String, Object> item1 = new HashMap<>();
-//        HashMap.
         item1.put("title", "火图科技");
-        item1.put("target", "_blank");
         item1.put("url", "http://www.huobanplus.com");
-
         linkItems.add(item1);
         linkItems.add(item1);
         linkItems.add(item1);
         linkItems.add(item1);
         linkItems.add(item1);
-
-        properties.put(VALID_LINK_LIST, item1);
+        properties.put(VALID_LINK_LIST, linkItems);
         return properties;
     }
 
