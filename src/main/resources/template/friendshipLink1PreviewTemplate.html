@@ -5,6 +5,7 @@
         <dd>
             <a rel="nofollow" target="_blank" th:each="link:${properties['linkList']}"
                th:href="${link['url']}"
+               th:target="${link['target']}"
                th:text="${link['title']}">火图科技</a>
         </dd>
     </dl>

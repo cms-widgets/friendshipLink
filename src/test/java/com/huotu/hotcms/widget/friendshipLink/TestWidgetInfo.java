@@ -61,6 +61,7 @@ public class TestWidgetInfo extends WidgetTest {
         List<Map<String, Object>> list = new ArrayList<>();
         Map<String, Object> linkItem = new HashMap<>();
         linkItem.put("title", "hello world");
+        linkItem.put("target", "_blank");
         linkItem.put("url", "http://www.baidu.com");
         list.add(linkItem);
         list.add(linkItem);
