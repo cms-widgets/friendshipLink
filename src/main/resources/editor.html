@@ -10,11 +10,34 @@
                 <div class="buttons">
                     <button class="btn btn-success addLink">添加链接</button>
                 </div>
+
             </div>
+
         </div>
         <!--/编辑视图-->
-    </div>
-    <div style="display">
+        <div class="LinkRowHtml" style="display:none">
+            <div class="row">
+                <div class="col-sm-3">
+                    <input type="text" class="form-control linkTitle" placeholder="链接名称" value=".">
+                </div>
+                <div class="col-sm-4">
+                    <input type="url" class="form-control linkUrl" placeholder="链接地址" value=".">
+                </div>
+                <div class="col-sm-3">
+                    <select class="form-control LinkTarget">
+                        <option value="_self">默认</option>
+                        <option value="_blank">_blank</option>
+                        <option value="_top">_top</option>
+                        <option value="_parent">_parent</option>
+                    </select>
 
+                </div>
+                <div class="col-sm-1">
+                    <input type="button" class="btn btn-danger removerLinkItem" value="删除">
+                </div>
+            </div>
+        </div>
     </div>
+
+
 </div>

@@ -119,6 +119,7 @@ public class WidgetInfo implements Widget {
         List<Map<String, Object>> linkItems = new ArrayList<>();
         Map<String, Object> item1 = new HashMap<>();
         item1.put("title", "火图科技");
+        item1.put("target", "_blank");
         item1.put("url", "http://www.huobanplus.com");
         linkItems.add(item1);
         linkItems.add(item1);

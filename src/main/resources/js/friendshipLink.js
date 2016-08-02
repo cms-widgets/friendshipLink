@@ -9,19 +9,9 @@ CMSWidgets.initWidget({
         properties: null,
         addLink: function () {
             $(".linkbox").on("click", ".addLink", function () {
-                $(".linkbox").append(
-                    '<div class="row">'
-                    + '<div class="col-sm-3">'
-                    + '<input type="text" class="form-control linkTitle" value="." placeholder="链接名称">'
-                    + '</div>'
-                    + '<div class="col-sm-6">'
-                    + '<input type="url" class="form-control linkUrl" value="." placeholder="链接地址">'
-                    + '</div>'
-                    + '<div class="col-sm-3">'
-                    + '<input type="button" class="btn btn-danger removerLinkItem" value="删除">'
-                    + '</div>'
-                    + '</div>'
-                );
+                var htmlElement = $(".LinkRowHtml").clone();
+                htmlElement.attr("display", "block");
+                $(".linkbox").append(htmlElement.html());
             });
         },
         removerLinkItem: function () {
@@ -30,17 +20,20 @@ CMSWidgets.initWidget({
                 var itemObj = $(this).parent().parent();
                 var title;
                 var url;
+                var target;
                 $.each($(itemObj).find(".linkTitle"), function (i, v) {
                     title = $(v).val();
                 });
                 $.each($(itemObj).find(".linkUrl"), function (i, v) {
                     url = $(v).val();
                 });
-
+                $.each($(itemObj).find(".LinkTarget"), function (i, v) {
+                    target = $(v).val();
+                });
+                itemObj.remove();
                 $.grep(me.properties['linkList'], function (obj, i) {
-                    if (obj != '' && obj.title == title && obj.url == url) {
+                    if (obj != '' && obj.title == title && obj.url == url && target == obj.target) {
                         me.properties['linkList'].splice(i, 1);
-                        itemObj.remove();
                         return;
                     }
                 });
@@ -52,16 +45,20 @@ CMSWidgets.initWidget({
             $.each($(".linkbox").find(".row"), function (i, row) {
                 var title = 'notitle';
                 var url = '#';
+                var target = '_blank';
                 $.each($(row).find(".linkTitle"), function (i, v) {
                     title = $(v).val();
                 });
                 $.each($(row).find(".linkUrl"), function (i, v) {
                     url = $(v).val();
                 });
+                $.each($(row).find(".LinkTarget"), function (i, v) {
+                    target = $(v).val();
+                });
                 var item = {
                     title: title
                     , url: url
-                    , target: '_blank'
+                    , target: target
                 };
                 me.properties['linkList'].push(item);
             });
