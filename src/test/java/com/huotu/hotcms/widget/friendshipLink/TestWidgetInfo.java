@@ -7,6 +7,7 @@ import com.huotu.widget.test.WidgetTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,34 +30,24 @@ public class TestWidgetInfo extends WidgetTest {
         } catch (IllegalStateException ignored) {
             assertThat(0).as("save没有属性值返回异常").isEqualTo(0);
         }
-
         //添加一个链接
         WebElement addLink = editor.findElement(By.className("addLink"));
         addLink.click();
-        List<WebElement> rows = editor.findElements(By.className("row"));
-        assertThat(rows.size()).as("节点添加成功").isEqualTo(2);
-        Map ps = currentWidgetProperties.get();
-        List<Map<String, Object>> linkList = (List<Map<String, Object>>) ps.get("linkList");
-        assertThat(linkList.get(0).get("title").toString()).as("添加的节点").isEqualTo(".");
 
+        List<WebElement> rows = editor.findElements(By.cssSelector(".linkbox .item"));
+        assertThat(rows.size()).as("节点添加成功").isEqualTo(1);
 
         //删除节点
-        List<WebElement> removerLinkItems = editor.findElements(By.className("removerLinkItem"));
-        assertThat(removerLinkItems.size()).isEqualTo(2);
+        List<WebElement> removerLinkItems = editor.findElements(By.cssSelector(".linkbox .removerLinkItem"));
+        assertThat(removerLinkItems.size()).isEqualTo(1);
         removerLinkItems.get(0).click();
-        try {
-            ps = currentWidgetProperties.get();
-        } catch (IllegalStateException e) {
-            assertThat(0).as("linkList 没有数据，返回properties is null").isEqualTo(0);
-        }
 
-        rows = editor.findElements(By.className("row"));
-        assertThat(rows.size()).isEqualTo(1);
+        rows = editor.findElements(By.cssSelector(".linkbox .item"));
+        assertThat(rows).isEmpty();
     }
 
     @Override
-    protected void browseWork(Widget widget, WidgetStyle style, Function<ComponentProperties, WebElement> uiChanger) {
-
+    protected void browseWork(Widget widget, WidgetStyle style, Function<ComponentProperties, WebElement> uiChanger) throws IOException {
         ComponentProperties properties = new ComponentProperties();
         List<Map<String, Object>> list = new ArrayList<>();
         Map<String, Object> linkItem = new HashMap<>();
@@ -74,4 +65,6 @@ public class TestWidgetInfo extends WidgetTest {
         assertThat(a.get(0).getAttribute("href")).isEqualToIgnoringCase("http://www.baidu.com");
         assertThat(a.get(0).getText()).isEqualToIgnoringCase("hello world");
     }
+
+
 }

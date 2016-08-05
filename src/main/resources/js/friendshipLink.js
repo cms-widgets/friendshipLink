@@ -10,8 +10,9 @@ CMSWidgets.initWidget({
         addLink: function () {
             $(".linkbox").on("click", ".addLink", function () {
                 var htmlElement = $(".LinkRowHtml").clone();
-                htmlElement.attr("display", "block");
+                htmlElement.css("display", "block");
                 $(".linkbox").append(htmlElement.html());
+                console.error($(".linkbox").html())
             });
         },
         removerLinkItem: function () {
@@ -20,20 +21,16 @@ CMSWidgets.initWidget({
                 var itemObj = $(this).parent().parent();
                 var title;
                 var url;
-                var target;
                 $.each($(itemObj).find(".linkTitle"), function (i, v) {
                     title = $(v).val();
                 });
                 $.each($(itemObj).find(".linkUrl"), function (i, v) {
                     url = $(v).val();
                 });
-                $.each($(itemObj).find(".LinkTarget"), function (i, v) {
-                    target = $(v).val();
-                });
                 itemObj.remove();
-                $.grep(me.properties['linkList'], function (obj, i) {
-                    if (obj != '' && obj.title == title && obj.url == url && target == obj.target) {
-                        me.properties['linkList'].splice(i, 1);
+                $.grep(me.properties.linkList, function (obj, i) {
+                    if (obj != '' && obj.title == title && obj.url == url) {
+                        me.properties.linkList.splice(i, 1);
                         return;
                     }
                 });
@@ -41,28 +38,24 @@ CMSWidgets.initWidget({
         },
         saveComponent: function (onSuccess, onFailed) {
             var me = this;
-            me.properties['linkList'] = [];
-            $.each($(".linkbox").find(".row"), function (i, row) {
-                var title = 'notitle';
+            me.properties.linkList = [];
+            $.each($(".linkbox").find(".item"), function (i, row) {
+                var title = '';
                 var url = '#';
-                var target = '_blank';
                 $.each($(row).find(".linkTitle"), function (i, v) {
                     title = $(v).val();
                 });
                 $.each($(row).find(".linkUrl"), function (i, v) {
                     url = $(v).val();
                 });
-                $.each($(row).find(".LinkTarget"), function (i, v) {
-                    target = $(v).val();
-                });
                 var item = {
                     title: title
                     , url: url
-                    , target: target
+                    , target: '_blank'
                 };
-                me.properties['linkList'].push(item);
+                me.properties.linkList.push(item);
             });
-            if (me.properties['linkList'].length == 0) {
+            if (me.properties.linkList.length == 0) {
                 onFailed("组件数据缺少,未能保存,请完善。");
                 return;
             }
@@ -70,7 +63,7 @@ CMSWidgets.initWidget({
             return this.properties;
         },
         initProperties: function () {
-            this.properties['linkList'] = [];
+            this.properties.linkList = [];
         },
         open: function (globalId) {
             this.properties = widgetProperties(globalId);
