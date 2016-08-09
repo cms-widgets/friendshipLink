@@ -12,7 +12,6 @@ CMSWidgets.initWidget({
                 var htmlElement = $(".LinkRowHtml").clone();
                 htmlElement.css("display", "block");
                 $(".linkbox").append(htmlElement.html());
-                console.error($(".linkbox").html())
             });
         },
         removerLinkItem: function () {
