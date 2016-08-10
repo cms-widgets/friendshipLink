@@ -30,7 +30,7 @@ CMSWidgets.initWidget({
                 $.grep(me.properties.linkList, function (obj, i) {
                     if (obj != '' && obj.title == title && obj.url == url) {
                         me.properties.linkList.splice(i, 1);
-                        return;
+                        return true;
                     }
                 });
             });
@@ -48,9 +48,9 @@ CMSWidgets.initWidget({
                     url = $(v).val();
                 });
                 var item = {
-                    title: title
-                    , url: url
-                    , target: '_blank'
+                    title: title,
+                    url: url,
+                    target: '_blank'
                 };
                 me.properties.linkList.push(item);
             });
