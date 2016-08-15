@@ -2,7 +2,7 @@
 <div class="link-exchange">
     <dl>
         <dt>友情链接</dt>
-        <dd th:each="link:${properties['linkList']}">
+        <dd th:each="link:${linkList}">
             <a rel="nofollow" target="_blank" th:href="${link['url']}"
                th:target="${link['target']}"
                th:text="${link['title']}">火图科技</a>

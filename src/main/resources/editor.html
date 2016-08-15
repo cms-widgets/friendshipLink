@@ -6,16 +6,29 @@
                     <button type="button" class="btn btn-success addLink">添加链接</button>
                 </div>
             </div>
+            <div class="item form-group" th:each="link:${linkList}">
+                <div class="col-sm-3">
+                    <input type="text" name="title" th:value="${link['title']}" class="form-control linkTitle"
+                           placeholder="链接名称">
+                </div>
+                <div class="col-sm-6">
+                    <input type="url" name="url" th:value="${link['url']}" class="form-control linkUrl"
+                           placeholder="链接地址">
+                </div>
+                <div class="col-sm-3">
+                    <input type="button" class="btn btn-danger removerLinkItem" value="删除">
+                </div>
+            </div>
         </div>
     </form>
 
     <div class="LinkRowHtml" style="display:none;">
         <div class="item form-group">
             <div class="col-sm-3">
-                <input type="text" class="form-control linkTitle" placeholder="链接名称">
+                <input type="text" name="title" class="form-control linkTitle" placeholder="链接名称">
             </div>
             <div class="col-sm-6">
-                <input type="url" class="form-control linkUrl" placeholder="链接地址">
+                <input type="url" name="url" class="form-control linkUrl" placeholder="链接地址">
             </div>
             <div class="col-sm-3">
                 <input type="button" class="btn btn-danger removerLinkItem" value="删除">
