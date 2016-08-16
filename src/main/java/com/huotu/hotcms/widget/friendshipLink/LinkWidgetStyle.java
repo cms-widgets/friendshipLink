@@ -4,7 +4,6 @@ import com.huotu.hotcms.widget.WidgetStyle;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import java.text.MessageFormat;
 import java.util.Locale;
 
 /**
@@ -50,7 +49,7 @@ public class LinkWidgetStyle implements WidgetStyle {
 
     @Override
     public Resource previewTemplate() {
-        return new ClassPathResource("/template/friendshipLink1PreviewTemplate.html", getClass().getClassLoader());
+        return null;
     }
 
     @Override
