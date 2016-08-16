@@ -65,7 +65,8 @@ public class TestWidgetInfo extends WidgetTest {
     }
 
     @Override
-    protected void editorBrowseWork(Widget widget, Function<ComponentProperties, WebElement> uiChanger) throws IOException {
+    protected void editorBrowseWork(Widget widget, Function<ComponentProperties, WebElement> uiChanger
+            , Supplier<Map<String, Object>> currentWidgetProperties) throws IOException {
         ComponentProperties properties = widget.defaultProperties(resourceService);
         List<Map> links = (List<Map>) properties.get(WidgetInfo.VALID_LINK_LIST);
         WebElement webElement = uiChanger.apply(properties);
@@ -73,6 +74,7 @@ public class TestWidgetInfo extends WidgetTest {
         assertThat(list.size()).isEqualTo(links.size());
         assertThat(list.get(0).findElement(By.name("title")).getAttribute("value"))
                 .isEqualTo(links.get(0).get("title").toString());
+
     }
 
 
