@@ -13,7 +13,7 @@
 
     <groupId>com.huotu.hotcms.widget.friendshipLink</groupId>
     <artifactId>friendshipLink</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>friendshipLink</name>

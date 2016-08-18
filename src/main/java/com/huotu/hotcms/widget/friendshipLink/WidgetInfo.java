@@ -19,6 +19,7 @@ import org.springframework.http.MediaType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -89,7 +90,7 @@ public class WidgetInfo implements Widget {
     @Override
     public void valid(String styleId, ComponentProperties componentProperties) throws IllegalArgumentException {
         WidgetStyle style = WidgetStyle.styleByID(this, styleId);
-        List<Map<String, Object>> linkList = (List<Map<String, Object>>) componentProperties.get(VALID_LINK_LIST);
+        List<LinkedHashMap<String, String>> linkList = (List<LinkedHashMap<String, String>>) componentProperties.get(VALID_LINK_LIST);
         if (linkList == null || linkList.size() <= 0) {
             throw new IllegalArgumentException();
         }

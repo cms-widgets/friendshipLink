@@ -30,7 +30,7 @@ public class TestWidgetInfo extends WidgetTest {
         addLink.click();
 
         List<WebElement> rows = editor.findElements(By.cssSelector(".linkbox .item"));
-        assertThat(rows.size()).as("节点添加成功").isEqualTo(1);
+        assertThat(rows.size()).as("节点添加成功").isEqualTo(7);
         WebElement title = editor.findElement(By.name("title"));
         Actions actions = new Actions(driver);
         actions.sendKeys(title, "abc").build().perform();
@@ -44,11 +44,11 @@ public class TestWidgetInfo extends WidgetTest {
 
         //删除节点
         List<WebElement> removerLinkItems = editor.findElements(By.cssSelector(".linkbox .removerLinkItem"));
-        assertThat(removerLinkItems.size()).isEqualTo(1);
+        assertThat(removerLinkItems.size()).isEqualTo(7);
         removerLinkItems.get(0).click();
 
         rows = editor.findElements(By.cssSelector(".linkbox .item"));
-        assertThat(rows).isEmpty();
+        assertThat(rows.size()).isEqualTo(6);
 
     }
 
@@ -74,7 +74,6 @@ public class TestWidgetInfo extends WidgetTest {
         assertThat(list.size()).isEqualTo(links.size());
         assertThat(list.get(0).findElement(By.name("title")).getAttribute("value"))
                 .isEqualTo(links.get(0).get("title").toString());
-
     }
 
 
