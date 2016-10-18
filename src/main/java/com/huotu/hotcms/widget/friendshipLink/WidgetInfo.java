@@ -112,7 +112,6 @@ public class WidgetInfo implements Widget, PreProcessWidget {
         ComponentProperties properties = new ComponentProperties();
         CategoryRepository categoryRepository = getCMSServiceFromCMSContext(CategoryRepository.class);
         List<Category> list = categoryRepository.findBySiteAndContentType(CMSContext.RequestContext().getSite(), ContentType.Link);
-        log.error("----" + list.isEmpty());
         if (list.isEmpty()) {
             Category category = initCategory(null, "链接数据源");
             Category category1 = initCategory(category, "子链接源1");
@@ -146,7 +145,6 @@ public class WidgetInfo implements Widget, PreProcessWidget {
             CategoryAndContent<Link> categoryAndContent = new CategoryAndContent<>(category, links);
             dataList.add(categoryAndContent);
         }
-        log.error("--------" + dataList.size());
         variables.put(DATA_LIST, dataList);
     }
 
