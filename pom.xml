@@ -15,7 +15,9 @@
     <artifactId>friendshipLink</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-
+    <description>
+        底部友情链接，可以选择连接数据源，也可以添加外链，支持一级菜单显示。
+    </description>
     <name>friendshipLink</name>
     <url>https://github.com/huotuinc/CMS</url>
     <organization>

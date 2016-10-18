@@ -18,15 +18,15 @@ public class LinkWidgetStyle implements WidgetStyle {
 
     @Override
     public String name() {
-        return "bootstrap 风格";
+        return "默认样式";
     }
 
     @Override
     public String name(Locale locale) {
-        if (locale.equals(Locale.CHINESE)) {
-            return "bootstrap 风格";
+        if (locale.equals(Locale.CHINA)) {
+            return "默认样式";
         }
-        return "bootstrap style";
+        return "default style";
     }
 
     @Override
@@ -36,7 +36,7 @@ public class LinkWidgetStyle implements WidgetStyle {
 
     @Override
     public String description(Locale locale) {
-        if (locale.equals(Locale.CHINESE)) {
+        if (locale.equals(Locale.CHINA)) {
             return "基于bootstrap样式的友情链接";
         }
         return "Based on the bootstrap style by Friendship link";
