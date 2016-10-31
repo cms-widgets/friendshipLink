@@ -36,9 +36,9 @@ import java.util.*;
  * @author CJ
  */
 public class WidgetInfo implements Widget, PreProcessWidget {
+    public static final String LINK_CATEGORY_SERIAL = "linkCategorySerial";
+    public static final String DATA_LIST = "dataList";
     private static final Log log = LogFactory.getLog(WidgetInfo.class);
-    private static final String LINK_CATEGORY_SERIAL = "linkCategorySerial";
-    private static final String DATA_LIST = "dataList";
 
     @Override
     public String groupId() {
@@ -148,17 +148,6 @@ public class WidgetInfo implements Widget, PreProcessWidget {
         variables.put(DATA_LIST, dataList);
     }
 
-    /**
-     * 从CMSContext中获取CMSService的实现
-     *
-     * @param cmsService 需要返回的service接口
-     * @param <T>        返回的service实现
-     * @return
-     */
-    private <T> T getCMSServiceFromCMSContext(Class<T> cmsService) {
-        return CMSContext.RequestContext().
-                getWebApplicationContext().getBean(cmsService);
-    }
 
     /**
      * 初始化数据源
@@ -167,7 +156,7 @@ public class WidgetInfo implements Widget, PreProcessWidget {
      * @param name
      * @return
      */
-    private Category initCategory(Category parent, String name) {
+    public Category initCategory(Category parent, String name) {
         CategoryService categoryService = getCMSServiceFromCMSContext(CategoryService.class);
         CategoryRepository categoryRepository = getCMSServiceFromCMSContext(CategoryRepository.class);
         Category category = new Category();
@@ -186,7 +175,7 @@ public class WidgetInfo implements Widget, PreProcessWidget {
      *
      * @param category
      */
-    private Link initLink(Category category) {
+    public Link initLink(Category category) {
         ContentService contentService = getCMSServiceFromCMSContext(ContentService.class);
         LinkService linkService = getCMSServiceFromCMSContext(LinkService.class);
         Link link = new Link();
