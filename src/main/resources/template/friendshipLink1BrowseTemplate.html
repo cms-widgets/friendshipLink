@@ -11,13 +11,15 @@
 <!--</div>-->
 <div xmlns:th="http://www.thymeleaf.org" class="mall-footer" th:id="${componentId}">
     <dl th:each="categoryAndLink : ${dataList}">
-        <dt th:value="${categoryAndLink.category.name}">购物指南</dt>
+        <dt th:text="${categoryAndLink.category.name}">购物指南</dt>
         <dd>
             <p th:each="link:${categoryAndLink.list}">
-                <a href="javascript:void(0)" th:if="${link.linkType.isPage()}" th:href="@{/${link.pagePath}}"
-                   th:text="${link.title}" target="_blank">购物流程</a>
-                <a href="javascript:void(0)" th:if="${!link.linkType.isPage()}" th:href="${link.linkUrl}"
-                   th:text="${link.title}" target="_blank">购物流程</a>
+                <a href="javascript:void(0)" th:if="${link.linkType.isPage()}" data-page="true"
+                   th:href="@{/${link.pagePath}}"
+                   th:text="${link.title}">购物流程page</a>
+                <a href="javascript:void(0)" th:if="${!link.linkType.isPage()}" data-page="false"
+                   th:href="${link.linkUrl}"
+                   th:text="${link.title}">购物流程</a>
             </p>
         </dd>
     </dl>

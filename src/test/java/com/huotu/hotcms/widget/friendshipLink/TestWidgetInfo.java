@@ -50,7 +50,7 @@ public class TestWidgetInfo extends WidgetTest {
         LinkRepository linkRepository = widget.getCMSServiceFromCMSContext(LinkRepository.class);
         CategoryRepository categoryRepository = widget.getCMSServiceFromCMSContext(CategoryRepository.class);
         PageInfoRepository pageInfoRepository = widget.getCMSServiceFromCMSContext(PageInfoRepository.class);
-        List<Category> list = categoryRepository.findByParent_Serial(categorySerial);
+        List<Category> list = categoryRepository.findByParent_SerialAndDeletedFalse(categorySerial);
         List<CategoryAndContent<Link>> dataList = new ArrayList<>();
         for (Category category : list) {
             List<Link> links = linkRepository.findByCategory(category);

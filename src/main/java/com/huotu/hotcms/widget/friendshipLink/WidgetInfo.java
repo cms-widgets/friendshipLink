@@ -87,7 +87,6 @@ public class WidgetInfo implements Widget, PreProcessWidget {
         return null;
     }
 
-
     @Override
     public WidgetStyle[] styles() {
         return new WidgetStyle[]{new LinkWidgetStyle()};
@@ -111,7 +110,7 @@ public class WidgetInfo implements Widget, PreProcessWidget {
     public ComponentProperties defaultProperties(ResourceService resourceService) {
         ComponentProperties properties = new ComponentProperties();
         CategoryRepository categoryRepository = getCMSServiceFromCMSContext(CategoryRepository.class);
-        List<Category> list = categoryRepository.findBySiteAndContentType(CMSContext.RequestContext().getSite(), ContentType.Link);
+        List<Category> list = categoryRepository.findBySiteAndContentTypeAndDeletedFalse(CMSContext.RequestContext().getSite(), ContentType.Link);
         if (list.isEmpty()) {
             Category category = initCategory(null, "链接数据源");
             Category category1 = initCategory(category, "子链接源1");
@@ -132,7 +131,7 @@ public class WidgetInfo implements Widget, PreProcessWidget {
         LinkRepository linkRepository = getCMSServiceFromCMSContext(LinkRepository.class);
         CategoryRepository categoryRepository = getCMSServiceFromCMSContext(CategoryRepository.class);
         PageInfoRepository pageInfoRepository = getCMSServiceFromCMSContext(PageInfoRepository.class);
-        List<Category> list = categoryRepository.findByParent_Serial(categorySerial);
+        List<Category> list = categoryRepository.findByParent_SerialAndDeletedFalse(categorySerial);
         List<CategoryAndContent<Link>> dataList = new ArrayList<>();
         for (Category category : list) {
             List<Link> links = linkRepository.findByCategory(category);
@@ -140,6 +139,7 @@ public class WidgetInfo implements Widget, PreProcessWidget {
                 if (link.getLinkType().isPage()) {
                     PageInfo pageInfo = pageInfoRepository.findOne(link.getPageInfoID());
                     link.setPagePath(pageInfo.getPagePath());
+                    log.error("pagePath==" + link.getPagePath());
                 }
             }
             CategoryAndContent<Link> categoryAndContent = new CategoryAndContent<>(category, links);
